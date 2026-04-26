@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> findValidElements(vector<int>& nums) {
+        int size =nums.size();
+        vector<int>prefixMax(size),suffixMax(size),result;
+        prefixMax[0]=-1e9;
+        for (int index=1;index<size;index++){
+            prefixMax[index]=max(prefixMax[index-1],nums[index-1]);
+        }
+        suffixMax[size-1]=-1e9;
+        for(int index=size-2;index>=0;index--){
+            suffixMax[index]=max(suffixMax[index+1],nums[index+1]);
+        }
+        for(int index=0;index<size;index++){
+            if (nums[index]>prefixMax[index]|| nums[index]>suffixMax[index]){
+                result.push_back(nums[index]);
+            }
+        }
+        return result;
+    }
+};
